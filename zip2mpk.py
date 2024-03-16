@@ -63,11 +63,11 @@ def export(path, name, local):
     with zipfile.ZipFile((buffer := BytesIO()), 'w', compression=zipfile.ZIP_DEFLATED, allowZip64=True) as mpk:
         os.chdir(path)
         for i in get_all_file_paths("."):
-            print(f"正在写入:%s" % i.rsplit(".\\")[1])
+            print(f"Writing:%s" % i.rsplit(".\\")[1])
             try:
                 mpk.write(i)
             except Exception as e:
-                print("写入失败:{}{}".format(i, e))
+                print("Fail:{}{}".format(i, e))
     with zipfile.ZipFile("".join([local, os.sep, name, ".mpk"]), 'w',
                          compression=zipfile.ZIP_DEFLATED, allowZip64=True) as mpk2:
         mpk2.writestr('main.zip', buffer.getvalue())
@@ -76,21 +76,21 @@ def export(path, name, local):
     if os.path.exists(local + os.sep + name + ".mpk"):
         return local + os.sep + name + ".mpk"
     else:
-        print("打包%s失败" % (local + os.sep + name + ".mpk"))
+        print("Pack %s Fail" % (local + os.sep + name + ".mpk"))
         return False
 
 
 def main(path, local):
     if not os.path.isfile(path):
-        print("非文件")
+        print("Not File")
         return
     elif zipfile.is_zipfile(path):
-        print(f"正在处理:{path}")
+        print(f"Handling:{path}")
         with tempfile.TemporaryDirectory() as tmpdirname:
             extract(path, tmpdirname)
-            print("正在修改主脚本")
+            print("Modifying Main Script")
             modify(tmpdirname)
-            print("打包为MPK")
+            print("Pack to MPK")
             out = export(tmpdirname, os.path.basename(path.split('.')[0]), os.path.dirname(path))
         os.chdir(local)
         try:
@@ -99,5 +99,5 @@ def main(path, local):
             pass
         return out
     else:
-        print("文件格式异常！")
+        print("Unknown Format！")
         return None
