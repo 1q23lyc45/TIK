@@ -1307,7 +1307,7 @@ def dboot(infile, orig):
         try:
             rmdire(infile)
         except (Exception, BaseException):
-            print("Deletion...")
+            print("Remove Fail...")
         print("Pack Successful...")
 
 
