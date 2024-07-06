@@ -1161,7 +1161,7 @@ def packChoo(project):
             else:
                 form = 'img'
             if settings.diyimgtype == '1':
-                imgtype = input("手动打包所有分区格式为：[1]ext4 [2]erofs [3]f2fs:")
+                imgtype = input("File System：[1]ext4 [2]erofs [3]f2fs:")
                 if imgtype == '1':
                     imgtype = 'ext'
                 elif imgtype == '2':
@@ -1181,7 +1181,7 @@ def packChoo(project):
                 else:
                     inpacker(parts[f], project, form, imgtype)
         elif filed == '55':
-            op_menu = input("  输出所有文件格式[1]br [2]dat [3]img:")
+            op_menu = input("  File Format:[1]br [2]dat [3]img:")
             if op_menu == '1':
                 form = 'br'
             elif op_menu == '2':
@@ -1189,7 +1189,7 @@ def packChoo(project):
             else:
                 form = 'img'
             if settings.diyimgtype == '1':
-                imgtype = input("手动打包所有分区格式为：[1]ext4 [2]erofs [3]f2fs:")
+                imgtype = input("File System：[1]ext4 [2]erofs [3]f2fs:")
                 if imgtype == '1':
                     imgtype = 'ext'
                 elif imgtype == '2':
@@ -1221,7 +1221,7 @@ def packChoo(project):
         elif filed.isdigit():
             if int(filed) in parts.keys():
                 if settings.diyimgtype == '1' and types[int(filed)] not in ['bootimg', 'dtb', 'dtbo']:
-                    imgtype = input("手动打包所有分区格式为：[1]ext4 [2]erofs [3]f2fs:")
+                    imgtype = input("File System：[1]ext4 [2]erofs [3]f2fs:")
                     if imgtype == '1':
                         imgtype = 'ext'
                     elif imgtype == '2':
