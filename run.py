@@ -95,10 +95,10 @@ def rmdire(path):
 
         try:
             shutil.rmtree(path)
-        except PermissionError:
-            ywarn("无法删除文件夹，权限不足")
+        except PermissionError as e:
+            ywarn(f"Cannot Remove, {e}")
         else:
-            ysuc("删除成功！")
+            ysuc("Remove Successful！")
 
 
 def error(exception_type, exception, traceback):
@@ -188,14 +188,14 @@ class upgrade:
             except (Exception, BaseException):
                 data = None
         if not data:
-            input("链接服务器失败, 按任意按钮返回")
+            input("Connect to server failed, press any button to return")
             return
         else:
             if data.get('version', settings.version) != settings.version:
                 print(f'\033[31m {banner.banner1} \033[0m')
                 print(
-                    f"\033[0;32;40m发现新版本：\033[0m\033[0;36;40m{settings.version} --> {data.get('version')}\033[0m")
-                print(f"\033[0;32;40m更新日志：\n\033[0m\033[0;36;40m{data.get('log', '1.Fix Some Bugs')}\033[0m")
+                    f"\033[0;32;40mNew Version：\033[0m\033[0;36;40m{settings.version} --> {data.get('version')}\033[0m")
+                print(f"\033[0;32;40mChangeLog：\n\033[0m\033[0;36;40m{data.get('log', '1.Fix Some Bugs')}\033[0m")
                 try:
                     link = data['link'][plat.system()][plat.machine()]
                 except (Exception, BaseException):
@@ -424,7 +424,7 @@ def plug_parse(js_on):
                 try:
                     data_ = json.load(f)
                 except Exception as e:
-                    ywarn("解析错误 %s" % e)
+                    ywarn("Error %s" % e)
                     return
                 plugin_title = data_['main']['info']['title']
                 print("----------" + plugin_title + "----------")
@@ -465,7 +465,7 @@ def plug_parse(js_on):
                                 text = 'M.K.C' if 'text' not in con else con['text']
                                 self.gavs[b_var_name] = 1 if input(text + "[1/0]:") == '1' else 0
                             else:
-                                print("不支持的解析:%s" % con['type'])
+                                print("Error:%s" % con['type'])
 
     data = parse(js_on)
     return data.gavs, data.value
@@ -552,7 +552,7 @@ class Tool:
 
     @staticmethod
     def dis_avb(fstab):
-        print(f"正在处理: {fstab}")
+        print(f"Processing: {fstab}")
         if not os.path.exists(fstab):
             return
         with open(fstab, "r") as sf:
@@ -575,7 +575,7 @@ class Tool:
 
     @staticmethod
     def dis_data_encryption(fstab):
-        print(f"正在处理: {fstab}")
+        print(f"Processing: {fstab}")
         if not os.path.exists(fstab):
             return
         with open(fstab, "r") as sf:
