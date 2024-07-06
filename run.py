@@ -1294,7 +1294,6 @@ def dboot(infile, orig):
             os.rename("ramdisk-new.cpio", "ramdisk.cpio")
         if comp == "cpio":
             flag = "-n"
-        ramdisk = True
     else:
         os.chdir(infile)
     if call("magiskboot repack %s %s" % (flag, orig)) != 0:
@@ -1775,11 +1774,10 @@ def unpack(file, info, project):
     elif info == 'payload':
         yecho(f"{os.path.basename(file)}List of partitions included：")
         os.system(f'{ebinner}payload-dumper-go -l {file}')
-        extp = input("Please Enter Partition names need to be decompressed (separated by spaces)/all	")
-        yecho(f"{os.path.basename(file)}所含分区列表：")
+        yecho(f"{os.path.basename(file)}Partitions：")
         with open(file, 'rb') as pay:
             print(f'{(parts_ := [i.partition_name for i in utils.payload_reader(pay).partitions])}')
-        extp = input("请输入需要解压的分区名(空格隔开)/all[全部]	")
+        extp = input("Please Enter Partition names need to be decompressed (separated by spaces)/all	")
         if extp == 'all':
             Dumper(
                 file,
