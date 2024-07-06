@@ -629,6 +629,7 @@ class Tool:
         print(" \n\033[31m>Other \033[0m\n")
         print(f"  Project：{self.pro}\n")
         print('\033[33m    0> Return to superior     1> Magisk Patcher\033[0m\n')
+        print('\033[33m    2> Disable avb(fstab)     3> Disable data_encryption(fstab)\033[0m\n')
         op_menu = input("    Please enter the number: ")
         if op_menu == '0':
             return
