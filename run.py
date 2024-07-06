@@ -1371,7 +1371,7 @@ def makedtb(sf, project):
     os.makedirs(dtbdir + os.sep + "new_dtb_files")
     for dts_files in os.listdir(dtbdir + os.sep + "dts_files"):
         new_dtb_files = dts_files.split('.')[0]
-        yecho(f"正在回编译{dts_files}为{new_dtb_files}.dtb")
+        yecho(f"Compiling {dts_files}to{new_dtb_files}.dtb")
         dtb_ = dtbdir + os.sep + "dts_files" + os.sep + dts_files
         if call(f'dtc -@ -I "dts" -O "dtb" "{dtb_}" -o "{dtbdir + os.sep}new_dtb_files{os.sep}{new_dtb_files}.dtb"',
                 out=1) != 0:
@@ -1395,17 +1395,17 @@ def undtbo(project, infile):
             os.makedirs(dtbodir + os.sep + "dts_files")
         except (Exception, BaseException):
             ...
-    yecho("正在解压dtbo.img")
+    yecho("Unpacking dtbo.img")
     mkdtboimg.dump_dtbo(infile, dtbodir + os.sep + "dtbo_files" + os.sep + "dtbo")
     for dtbo_files in os.listdir(dtbodir + os.sep + "dtbo_files"):
         if dtbo_files.startswith('dtbo.'):
             dts_files = dtbo_files.replace("dtbo", 'dts')
-            yecho(f"正在反编译{dtbo_files}为{dts_files}")
+            yecho(f"Decompiling{dtbo_files}为{dts_files}")
             dtbofiles = dtbodir + os.sep + "dtbo_files" + os.sep + dtbo_files
             if call(f'dtc -@ -I "dtb" -O "dts" {dtbofiles} -o "{dtbodir + os.sep + "dts_files" + os.sep + dts_files}"',
                     out=1) != 0:
-                ywarn(f"反编译{dtbo_files}失败！")
-    ysuc("完成！")
+                ywarn(f"Error:{dtbo_files}！")
+    ysuc("Done！")
     time.sleep(1)
 
 
@@ -1417,12 +1417,12 @@ def makedtbo(sf, project):
     os.makedirs(dtbodir + os.sep + 'new_dtbo_files')
     for dts_files in os.listdir(dtbodir + os.sep + 'dts_files'):
         new_dtbo_files = dts_files.replace('dts', 'dtbo')
-        yecho(f"正在回编译{dts_files}为{new_dtbo_files}")
+        yecho(f"Compiling {dts_files}to {new_dtbo_files}")
         dtb_ = dtbodir + os.sep + "dts_files" + os.sep + dts_files
         call(
             f'dtc -@ -I "dts" -O "dtb" {dtb_} -o {dtbodir + os.sep + "new_dtbo_files" + os.sep + new_dtbo_files}',
             out=1)
-    yecho("正在生成dtbo.img...")
+    yecho("Creating dtbo.img...")
     list_ = []
     for b in os.listdir(dtbodir + os.sep + "new_dtbo_files"):
         if b.startswith('dtbo.'):
@@ -1431,7 +1431,7 @@ def makedtbo(sf, project):
     try:
         mkdtboimg.create_dtbo(project + os.sep + os.path.basename(sf).split('.')[0] + '.img', list_, 4096)
     except (Exception, BaseException):
-        ywarn(f"{os.path.basename(sf).split('.')[0]}.img生成失败!")
+        ywarn(f"{os.path.basename(sf).split('.')[0]}.img Fail!")
     else:
         ysuc(f"{os.path.basename(sf).split('.')[0]}.img Successful!")
     input("Enter to continue")
@@ -1630,7 +1630,7 @@ def insuper(Imgdir, outputimg, ssize, stype, sparse):
                     img_size = os.path.getsize(Imgdir + os.sep + image + ".img")
                     superpa += f"--partition {image}:readonly:{img_size}:{settings.super_group} --image {image}={Imgdir}{os.sep}{image}.img "
                     group_size_a += img_size
-                print(f"已添加分区:{image}")
+                print(f"Added:{image}")
     supersize = ssize
     if not supersize:
         supersize = group_size_a + 4096000
@@ -1668,7 +1668,7 @@ def packpayload(project):
                 if i.endswith('.img'):
                     move_list.append(i)
         print("\n".join(move_list))
-        if input('确定操作吗[Y/N]') in ['Y', 'y', '1']:
+        if input('Continue ?[Y/N]') in ['Y', 'y', '1']:
             for i in move_list:
                 shutil.move(os.path.join(project + os.sep + 'TI_out', i), os.path.join(project + os.sep + 'payload', i))
     tool_auto_size = sum(
