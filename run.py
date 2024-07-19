@@ -1774,7 +1774,6 @@ def unpack(file, info, project):
         opscrypto.main(args)
     elif info == 'payload':
         yecho(f"{os.path.basename(file)}List of partitions included：")
-        os.system(f'{ebinner}payload-dumper-go -l {file}')
         yecho(f"{os.path.basename(file)}Partitions：")
         with open(file, 'rb') as pay:
             print(f'{(parts_ := [i.partition_name for i in utils.payload_reader(pay).partitions])}')
