@@ -1,5 +1,5 @@
 extract-dtb
-pyinstaller
+nuitka
 pycryptodome
 Requests
 rich
