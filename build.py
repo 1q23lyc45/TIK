@@ -45,9 +45,8 @@ def zip_folder(folder_path):
     print(f"Done!")
 
 
-import PyInstaller.__main__
 
-PyInstaller.__main__.run(['-F', 'run.py', '--exclude-module=numpy', '-i', 'icon.ico'])
+os.system('python3 -m nuitka --standalone --follow-imports --onefile run.py')
 
 if os.name == 'nt':
     if os.path.exists(local + os.sep + "dist" + os.sep + "run.exe"):
