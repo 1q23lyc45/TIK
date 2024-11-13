@@ -67,7 +67,7 @@ elif os.name == 'posix':
             continue
         shutil.rmtree(local + os.sep + "bin" + os.sep + "Linux" + os.sep + i)
 for i in os.listdir(local):
-    if i not in ['run', 'run.exe', 'bin', 'LICENSE']:
+    if i not in ['run.bin', 'run.exe', 'bin', 'LICENSE']:
         print(f"Removing {i}")
         if os.path.isdir(local + os.sep + i):
             try:
